@@ -1,5 +1,43 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/XW58GypY)
-# Homework 1: Beware of Geeks Bearing Gift Cards
+This repository contains my completed solution for Homework 1 of NYU's Application Security course. The assignment involved auditing, testing, fuzzing, and patching a vulnerable C-based gift card reader program provided by "Shoddycorp's Cut-Rate Contracting".
+
+---
+
+## ✅ Part 1: Environment Setup
+
+- Configured Git with signed commits using GPG.
+- GitHub Actions set up with a custom CI workflow located at `.github/workflows/hello.yml`.
+- Verified CI pipeline was triggered correctly on commit.
+
+---
+
+## ✅ Part 2: Auditing and Test Cases
+
+- **Audited the original C source code** (`giftcardreader.c`) and discovered multiple vulnerabilities.
+- Developed and added the following test cases:
+  - `crash1.gft`: Triggers a segmentation fault via invalid type parsing.
+  - `crash2.gft`: Exploits an out-of-bounds memory access.
+  - `hang.gft`: Triggers an infinite loop via malformed animation instructions.
+- Fixed the bugs that triggered these crashes/hangs.
+- Created regression tests and verified fixes using GitHub Actions.
+- Documented the bugs in [`part2.txt`](./part2.txt).
+
+---
+
+## ✅ Part 3: Fuzzing & Code Coverage
+
+- Measured initial coverage using `gcov` and `lcov`.
+- Created additional test cases:
+  - `cov1.gft` and `cov2.gft`: Reach previously untested code paths.
+- Used **AFL++** to fuzz the program for 2+ hours.
+- Discovered and patched additional crashes:
+  - `fuzzer1.gft` and `fuzzer2.gft`
+- Verified all fixes with GitHub Actions and regression tests.
+- Provided full details in [`part3.txt`](./part3.txt).
+
+---
+
+
+#Assesment Quetion: Homework 1: Beware of Geeks Bearing Gift Cards
 
 ## Get Latest Updates
 Use the following commands to pull the latest updates.
