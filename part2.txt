@@ -1,0 +1,31 @@
+Part 2 Write-Up
+-------------------
+
+1. File Name: `crash1.gft`
+- Description: This test case causes a crash by providing a negative value to `malloc` during memory allocation. The program tries to allocate space using this value, which results in a crash because allocating negative space is not possible.
+- Root Cause:
+  - The `amount_added` field is set to a large negative value (`0x80000000`), which is passed to `malloc`.
+  - As a result, `malloc` fails to allocate space and the program attempts to access invalid memory.
+- Proposed Fix:
+  - Validate the `amount_added` value before calling `malloc` to ensure it is a positive integer.
+  - Add a check: `if (gcac_ptr->amount_added >= 0)` before processing the value.
+
+
+2. File Name: `crash2.gft`
+- Description: This test case crashes the program by creating an animated message record with an invalid instruction (`\x01\x2f`). This instruction causes an out-of-bounds access when the program attempts to execute it.
+- Root Cause:
+  - The `animate()` function does not handle invalid or unrecognized instructions correctly.
+  - When the invalid instruction `\x2f` is encountered, it results in undefined behavior, leading to out-of-bounds memory access and a program crash.
+- Proposed Fix:
+  - Add validation for all instructions in the `giftcardprogram` to ensure they are within the expected range.
+  - Implement proper error handling for unknown or malformed instructions to prevent undefined behavior.
+
+
+3. File Name: `hang.gft`
+- Description: This test case causes the program to hang indefinitely by using a jump instruction (`\x09\xfd`) in the `giftcardprogram`. This instruction causes the program execution to loop back indefinitely, preventing further progress.
+- Root Cause:
+  - The `jump` instruction (`\x09`) sends the program counter backward repeatedly, creating an infinite loop.
+  - The program becomes unresponsive and hangs because the loop never terminates.
+- Proposed Fix:
+  - Add validation for jump instructions to ensure they do not cause infinite backward loops.
+  - Implement a loop counter or flag to detect and break out of infinite loops in the `animate()` function.

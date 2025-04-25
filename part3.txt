@@ -1,0 +1,30 @@
+Part 3 Write-Up
+-------------------
+
+1. File Name: `cov1.gft`
+- Description: This test case covers lines in the `gift_card_reader()` function that were previously uncovered. It does so by specifying input values that cause `op` to be equal to `0x00`, triggering an edge case in the program logic.
+- Coverage Impact: 
+  - The test case increases coverage by targeting a rarely executed path for handling the `op` value.
+
+
+2. File Name: `cov2.gft`
+- Description: This test case is designed to test an uncovered line in the `animate()` function by using the jump instruction (`\x09\xfd`), which causes an out-of-bounds access issue.
+- Coverage Impact:
+  - Ensures that invalid instructions in the `gift_card_program` are processed correctly and do not lead to memory errors.
+
+
+3. File Name: `fuzzer1.gft`
+- Description: Fuzzer-generated input that triggers a crash by providing an unknown record type (greater than `3`) in the header. The program does not handle this record type and attempts to process it, resulting in unexpected behavior.
+- Root Cause:
+  - The program logic does not include a safety check for record types outside the expected range, which leads to undefined behavior.
+- Proposed Fix:
+  - Implement a validation check for record types in the `gift_card_reader()` function to reject unsupported types.
+
+
+4. File Name: `fuzzer2.gft`
+- Description: This test case causes a segmentation fault by providing a message record that is one byte longer than the expected 32 bytes. The program tries to process the longer message, resulting in invalid memory access.
+- Root Cause:
+  - The `gift_card_reader()` function does not validate the length of the message field properly, causing a buffer overflow.
+- Proposed Fix:
+  - Add bounds checking for the message length before processing the message.
+  - Ensure that the length of any input field matches the expected size.
