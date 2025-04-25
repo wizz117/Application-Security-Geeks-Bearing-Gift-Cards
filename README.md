@@ -37,7 +37,7 @@ This repository contains my completed solution for Homework 1 of NYU's Applicati
 ---
 
 
-#Assesment Quetion: Homework 1: Beware of Geeks Bearing Gift Cards
+# Assesment Quetion: Homework 1: Beware of Geeks Bearing Gift Cards
 
 ## Get Latest Updates
 Use the following commands to pull the latest updates.
